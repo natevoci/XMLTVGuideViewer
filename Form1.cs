@@ -259,5 +259,42 @@ namespace GuideViewer
             RefreshView();
         }
 
+        private void checkedListBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+            if ((e.AllowedEffect & DragDropEffects.Copy) == 0)
+                return;
+
+            if (e.Data.GetDataPresent("FileName"))
+            {
+                string[] filenames = (string[])e.Data.GetData("FileDrop");
+                foreach (string filename in filenames)
+                {
+                    System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+                    if (fi.Exists == false)
+                        return;
+                }
+            }
+            e.Effect = DragDropEffects.All;
+        }
+
+        private void checkedListBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("FileName"))
+            {
+                string[] filenames = (string[])e.Data.GetData("FileDrop");
+                foreach (string filename in filenames)
+                {
+                    System.IO.FileInfo fi = new System.IO.FileInfo(filename);
+                    if (fi.Exists == false)
+                        return;
+                }
+                _xmlFilenames.Clear();
+                _xmlFilenames.AddRange(filenames);
+                _worker = new System.Threading.Thread(new System.Threading.ThreadStart(Run));
+                _worker.Start();
+            }
+        }
+
     }
 }

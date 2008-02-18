@@ -84,6 +84,7 @@ namespace GuideViewer
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.AllowDrop = true;
             this.checkedListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBox1.CheckOnClick = true;
@@ -92,6 +93,8 @@ namespace GuideViewer
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(470, 94);
             this.checkedListBox1.TabIndex = 3;
+            this.checkedListBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.checkedListBox1_DragEnter);
+            this.checkedListBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.checkedListBox1_DragDrop);
             // 
             // buttonShowChecked
             // 
